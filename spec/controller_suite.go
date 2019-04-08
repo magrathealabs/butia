@@ -4,8 +4,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
-
-	"github.com/magrathealabs/butia/internal/err"
 )
 
 // ControllerSuite mock controller requests
@@ -17,7 +15,9 @@ type ControllerSuite struct {
 // MockRequest on Server
 func (suite *ControllerSuite) MockRequest(method, path, body string) *httptest.ResponseRecorder {
 	req, reqError := http.NewRequest(method, path, strings.NewReader(body))
-	err.RaiseErr(reqError)
+	if reqError != nil {
+		panic(reqError)
+	}
 	w := httptest.NewRecorder()
 	suite.Server.ServeHTTP(w, req)
 	return w
