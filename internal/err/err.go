@@ -1,4 +1,4 @@
-package helper
+package err
 
 // RaiseErr if errs != nil
 func RaiseErr(errs ...error) {

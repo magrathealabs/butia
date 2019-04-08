@@ -2,10 +2,10 @@ package boot
 
 import (
 	"github.com/joho/godotenv"
-	"github.com/magrathealabs/butia/internal/helper"
+	"github.com/magrathealabs/butia/internal/err"
 )
 
 // Env bootstrap
 func Env() {
-	helper.RaiseErr(godotenv.Load())
+	err.RaiseErr(godotenv.Load())
 }

@@ -1,4 +1,4 @@
-package helper
+package err
 
 import (
 	"errors"
@@ -7,15 +7,15 @@ import (
 	"github.com/magrathealabs/butia/spec"
 )
 
-type ErrsSuite struct {
+type ErrSuite struct {
 	spec.Suite
 }
 
-func (suite *ErrsSuite) SetupTest() {
+func (suite *ErrSuite) SetupTest() {
 	suite.Suite.SetupTest()
 }
 
-func (suite *ErrsSuite) TestRaiseErr() {
+func (suite *ErrSuite) TestRaiseErr() {
 	suite.NotPanics(func() {
 		RaiseErr(nil)
 	})
@@ -26,5 +26,5 @@ func (suite *ErrsSuite) TestRaiseErr() {
 }
 
 func TestSpecTestSuite(t *testing.T) {
-	spec.Run(t, new(ErrsSuite))
+	spec.Run(t, new(ErrSuite))
 }
