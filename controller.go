@@ -2,6 +2,8 @@ package butia
 
 // Controller can handle all CRUD operations for any model
 type Controller interface {
+	Setup()
+
 	Index(c *Context)
 	Create(c *Context)
 	New(c *Context)

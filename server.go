@@ -18,6 +18,7 @@ func (server *Server) Controller(path string, controller Controller) {
 	server.GET(path+"/new", controller.New)
 	server.POST(path+"/create", controller.Create)
 	server.GET(path+"/show/:id", controller.Show)
+	server.GET(path+"/edit/:id", controller.Edit)
 	server.PUT(path+"/update/:id", controller.Update)
 	server.PATCH(path+"/update/:id", controller.Update)
 	server.DELETE(path+"/destroy/:id", controller.Destroy)
