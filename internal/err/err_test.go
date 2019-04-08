@@ -25,6 +25,6 @@ func (suite *ErrSuite) TestRaiseErr() {
 	})
 }
 
-func TestSpecTestSuite(t *testing.T) {
+func TestErrSuite(t *testing.T) {
 	spec.Run(t, new(ErrSuite))
 }
