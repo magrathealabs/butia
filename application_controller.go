@@ -10,9 +10,6 @@ func NewApplicationController(server *Server) Controller {
 	return &ApplicationController{server}
 }
 
-// Setup this controller
-func (controller *ApplicationController) Setup() {}
-
 // Index a basic model over GET method
 func (controller *ApplicationController) Index(c *Context) {
 	c.String(404, "Not implemented")
