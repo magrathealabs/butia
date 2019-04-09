@@ -11,19 +11,19 @@ type ApplicationControllerSuite struct {
 }
 
 func (suite *ApplicationControllerSuite) TestNewApplicationController() {
-	suite.NotNil(NewApplicationController(NewServer()))
+	suite.NotNil(NewApplicationController(NewBasicServer()))
 }
 
 func (suite *ApplicationControllerSuite) SetupTest() {
 	suite.ControllerSuite.SetupTest()
 
-	controller := NewApplicationController(NewServer())
+	controller := NewApplicationController(NewBasicServer())
 	controller.Setup()
 	suite.Server = controller.Server
 }
 
 func (suite *ApplicationControllerSuite) TestSetup() {
-	controller := NewApplicationController(NewServer())
+	controller := NewApplicationController(NewBasicServer())
 	controller.Setup()
 
 	suite.Equal(8, len(controller.Server.Routes()))
