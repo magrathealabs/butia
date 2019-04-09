@@ -14,10 +14,8 @@ type ControllerSuite struct {
 
 // MockRequest on Server
 func (suite *ControllerSuite) MockRequest(method, path, body string) *httptest.ResponseRecorder {
-	req, reqError := http.NewRequest(method, path, strings.NewReader(body))
-	if reqError != nil {
-		panic(reqError)
-	}
+	req, _ := http.NewRequest(method, path, strings.NewReader(body))
+
 	w := httptest.NewRecorder()
 	suite.Server.ServeHTTP(w, req)
 	return w
