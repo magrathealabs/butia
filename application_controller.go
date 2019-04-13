@@ -1,6 +1,6 @@
 package butia
 
-// ApplicationController implement a set of basic method to helpfull the controller management
+// ApplicationController implement a set of basic method to helpful the controller management
 type ApplicationController struct {
 	Server *Server
 }
