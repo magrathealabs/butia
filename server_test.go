@@ -10,9 +10,21 @@ type ServerSuite struct {
 	spec.Suite
 }
 
-func (suite *ServerSuite) TestServerStaticFilePath() {
+func (suite *ServerSuite) TestServerRootDirectoryPath() {
 	server := NewCompleteServer()
-	suite.Contains(server.StaticFilePath(), "global/src/github.com/magrathealabs/web/static")
+	suite.Contains(server.RootDirectoryPath(), "global/src/github.com/magrathealabs/web")
+}
+
+func (suite *ServerSuite) TestServerStaticDirectoryPath() {
+	server := NewCompleteServer()
+	suite.Contains(server.StaticDirectoryPath(), "static")
+	suite.Contains(server.StaticDirectoryPath(), server.RootDirectoryPath())
+}
+
+func (suite *ServerSuite) TestServerViewDirectoryPath() {
+	server := NewCompleteServer()
+	suite.Contains(server.ViewDirectoryPath(), "views")
+	suite.Contains(server.ViewDirectoryPath(), server.RootDirectoryPath())
 }
 
 func (suite *ServerSuite) TestNewBasicServer() {

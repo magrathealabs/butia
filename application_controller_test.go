@@ -10,16 +10,16 @@ type ApplicationControllerSuite struct {
 	spec.ControllerSuite
 }
 
-func (suite *ApplicationControllerSuite) TestNewApplicationController() {
-	suite.NotNil(NewApplicationController(NewBasicServer()))
-}
-
 func (suite *ApplicationControllerSuite) SetupTest() {
 	suite.ControllerSuite.SetupTest()
 
 	controller := NewApplicationController(NewBasicServer())
 	controller.Setup()
 	suite.Server = controller.Server
+}
+
+func (suite *ApplicationControllerSuite) TestNewApplicationController() {
+	suite.NotNil(NewApplicationController(NewBasicServer()))
 }
 
 func (suite *ApplicationControllerSuite) TestSetup() {

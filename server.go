@@ -13,9 +13,19 @@ type Server struct {
 	*gin.Engine
 }
 
-// StaticFilePath folder
-func (server *Server) StaticFilePath() string {
-	return filepath.Join(boot.Getenv("GOPATH", "/go"), "src", boot.Getenv("GIT_SRV", "github.com"), boot.Getenv("GIT_ORG", "magrathealabs"), boot.Getenv("APP_NAME", "web"), "static")
+// RootDirectoryPath return the path builded over envs
+func (server *Server) RootDirectoryPath() string {
+	return filepath.Join(boot.Getenv("GOPATH", "/go"), "src", boot.Getenv("GIT_SRV", "github.com"), boot.Getenv("GIT_ORG", "magrathealabs"), boot.Getenv("APP_NAME", "web"))
+}
+
+// StaticDirectoryPath directory
+func (server *Server) StaticDirectoryPath() string {
+	return filepath.Join(server.RootDirectoryPath(), "static")
+}
+
+// ViewDirectoryPath directory
+func (server *Server) ViewDirectoryPath() string {
+	return filepath.Join(server.RootDirectoryPath(), "views")
 }
 
 // NewBasicServer create a new gin router without configurations.
@@ -28,7 +38,7 @@ func NewBasicServer() *Server {
 // Use this for API applications with assets (REACT)
 func NewServerWithStatic() *Server {
 	server := NewBasicServer()
-	server.Static("/static", server.StaticFilePath())
+	server.Static("/static", server.StaticDirectoryPath())
 	return server
 }
 
@@ -36,7 +46,16 @@ func NewServerWithStatic() *Server {
 // Use this for web applications.
 func NewCompleteServer() (server *Server) {
 	server = NewServerWithStatic()
-	server.HTMLRender = gintemplate.Default()
+
+	server.HTMLRender = gintemplate.New(
+		gintemplate.TemplateConfig{
+			Root:         server.ViewDirectoryPath(),
+			Extension:    ".html",
+			Master:       "layouts/master",
+			Partials:     []string{"layouts/partials"},
+			DisableCache: true,
+		},
+	)
 	return
 }
 
