@@ -10,6 +10,11 @@ type ServerSuite struct {
 	spec.Suite
 }
 
+func (suite *ServerSuite) TestServerStaticFilePath() {
+	server := NewCompleteServer()
+	suite.Contains(server.StaticFilePath(), "global/src/github.com/magrathealabs/web/static")
+}
+
 func (suite *ServerSuite) TestNewBasicServer() {
 	suite.NotNil(NewBasicServer())
 	suite.Equal(0, len(NewBasicServer().Routes()))

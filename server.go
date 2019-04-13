@@ -3,15 +3,19 @@ package butia
 import (
 	"path/filepath"
 
-	"github.com/krakenlab/scopo/libs/env"
-
 	gintemplate "github.com/foolin/gin-template"
 	"github.com/gin-gonic/gin"
+	"github.com/magrathealabs/butia/internal/boot"
 )
 
 // Server can receive web requests
 type Server struct {
 	*gin.Engine
+}
+
+// StaticFilePath folder
+func (server *Server) StaticFilePath() string {
+	return filepath.Join(boot.Getenv("GOPATH", "/go"), "src", boot.Getenv("GIT_SRV", "github.com"), boot.Getenv("GIT_ORG", "magrathealabs"), boot.Getenv("APP_NAME", "web"), "static")
 }
 
 // NewBasicServer create a new gin router without configurations.
@@ -22,11 +26,10 @@ func NewBasicServer() *Server {
 
 // NewServerWithStatic create a new gin router without configurations.
 // Use this for API applications with assets (REACT)
-func NewServerWithStatic() (server *Server) {
-	server = NewBasicServer()
-	staticFilePath := filepath.Join(env.GetString("GOPATH", "/go"), "src", env.GetString("GIT_SRV", "github.com"), env.GetString("GIT_ORG", "magrathealabs"), env.GetString("APP_NAME", "web"), "static")
-	server.Static("/static", staticFilePath)
-	return
+func NewServerWithStatic() *Server {
+	server := NewBasicServer()
+	server.Static("/static", server.StaticFilePath())
+	return server
 }
 
 // NewCompleteServer create a new gin with gin-template configuration.
