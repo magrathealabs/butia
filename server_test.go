@@ -12,7 +12,7 @@ type ServerSuite struct {
 
 func (suite *ServerSuite) TestServerRootDirectoryPath() {
 	server := NewCompleteServer()
-	suite.Contains(server.RootDirectoryPath(), "global/src/github.com/magrathealabs/web")
+	suite.Contains(server.RootDirectoryPath(), "github.com/magrathealabs/web")
 }
 
 func (suite *ServerSuite) TestServerStaticDirectoryPath() {
